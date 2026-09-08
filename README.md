@@ -125,7 +125,7 @@ to:
 | Dependency   | Purpose            |
 | ------------ | ------------------ |
 | Python 3.10+ | Runtime            |
-| Ghidra       | Binary analysis    |
+| Ghidra 12.0.x| Binary analysis    |
 | GhidraOrbis  | Orbis loading      |
 | BinExport    | Ghidra → BinExport |
 | BinDiff      | Binary comparison  |
