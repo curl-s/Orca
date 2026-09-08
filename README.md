@@ -1,6 +1,6 @@
 
 <p align="center">
-    <img width="45%" height="45%" alt="logo" src="src/image-removebg-preview.png" />
+    <img width="35%" height="35%" alt="logo" src="src/image-removebg-preview.png" />
 </p>
 
 <h1 align="center">Orca</h1>
