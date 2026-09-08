@@ -1,4 +1,9 @@
-# Orca
+
+<p align="center">
+    <img width="25%" height="25%" alt="logo" src="src/image-removebg-preview.png" />
+</p>
+
+<h1 align="center">Orca</h1>
 
 > **Explore how Orbis OS evolves.**
 
