@@ -74,20 +74,6 @@ Removed: 1
 
 ---
 
-## Architecture
-
-```mermaid
-flowchart TD
-    CLI["CLI"] --> P["pipeline.py"]
-    P --> G["ghidra_export.py"]
-    P --> D["diff_engine.py"]
-
-    G --> GH["Ghidra"]
-    GH --> BE["BinExport"]
-    BE --> D
-
-    D --> M["models.py"]
-    M --> R["report.py"]
 ```
 
 | File               | Role                   |
