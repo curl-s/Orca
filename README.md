@@ -1,7 +1,7 @@
 <h1 align="center">Orca</h1>
 
 <p align="center">
-    <img width="40%" height="40%" alt="logo" src="src/image-removebg-preview.png" />
+  <img width="40%" height="40%" alt="Orca logo" src="src/image-removebg-preview.png" />
 </p>
 
 <p align="center">
@@ -19,7 +19,9 @@
   </a>
 </p>
 
-<p align="center">Beyond binary diffing. Understand firmware evolution.</h1>
+<p align="center">
+  <b>Beyond binary diffing. Understand firmware evolution.</b>
+</p>
 
 ---
 
@@ -27,7 +29,7 @@
 
 The long-term goal is to track how Orbis components, functions, and modules evolve across firmware versions.
 
-> **Current milestone:** `orbis-diff` - function-level diffing between two decrypted Orbis binaries.
+> **Current milestone:** `orbis-diff` — function-level diffing between two decrypted Orbis binaries.
 
 ---
 
@@ -74,34 +76,21 @@ Removed: 1
 
 ---
 
-```
-
-| File               | Role                   |
-| ------------------ | ---------------------- |
-| `cli.py`           | Command-line interface |
-| `pipeline.py`      | Pipeline orchestration |
-| `ghidra_export.py` | Ghidra / BinExport     |
-| `diff_engine.py`   | BinDiff integration    |
-| `models.py`        | Diff data structures   |
-| `report.py`        | Terminal output        |
-
----
-
-## MVP scope
+## MVP Scope
 
 | Feature                       | Status |
 | ----------------------------- | :----: |
-| Two-binary diffing            |    🗸   |
-| Ghidra headless               |    🗸   |
-| GhidraOrbis                   |    🗸   |
-| BinExport                     |    🗸   |
-| BinDiff                       |    🗸   |
-| Function changes              |    🗸   |
-| `.BinDiff` artifacts          |    🗸   |
-| Firmware database             |   ~   |
-| Multi-version tracking        |   ~   |
-| Web UI                        |   ~   |
-| Automatic firmware extraction |   ~   |
+| Two-binary diffing            |   🗸   |
+| Ghidra headless               |   🗸   |
+| GhidraOrbis                   |   🗸   |
+| BinExport                     |   🗸   |
+| BinDiff                       |   🗸   |
+| Function changes              |   🗸   |
+| `.BinDiff` artifacts          |   🗸   |
+| Firmware database             |    ~   |
+| Multi-version tracking        |    ~   |
+| Web UI                        |    ~   |
+| Automatic firmware extraction |    ~   |
 | Vulnerability detection       |    —   |
 
 The MVP deliberately focuses on getting **one binary pair through the complete pipeline reliably**.
@@ -121,7 +110,7 @@ timeline
     Orbis Evolution : Higher-level analysis
 ```
 
-The idea is to move from:
+The goal is to move from:
 
 **“What changed between these two binaries?”**
 
@@ -141,7 +130,7 @@ to:
 | BinExport    | Ghidra → BinExport |
 | BinDiff      | Binary comparison  |
 
-Install:
+### Installation
 
 ```bash
 git clone https://github.com/curl-s/Orca.git
