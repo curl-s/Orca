@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "orbis-diff"
+version = "0.1.0"
+description = "Minimal PS4/Orbis firmware binary diffing tool (Ghidra + GhidraOrbis + BinExport + BinDiff)"
+requires-python = ">=3.10"
+dependencies = [
+    "python-bindiff",
+    "python-binexport",
+]
+
+[project.scripts]
+orbis-diff = "orbis_diff.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["orbis_diff*"]
