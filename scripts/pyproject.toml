@@ -12,8 +12,16 @@ dependencies = [
     "python-binexport",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest>=7",
+]
+
 [project.scripts]
 orbis-diff = "orbis_diff.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["orbis_diff*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
