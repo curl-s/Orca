@@ -29,6 +29,8 @@ import shutil
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from .errors import ConfigurationError
+
 
 def _env_path(name: str, default: str | None = None) -> Path | None:
     val = os.environ.get(name, default)
@@ -117,3 +119,62 @@ class OrbisDiffConfig:
         if self.bindiff_path:
             env["BINDIFF_PATH"] = str(self.bindiff_path)
         return env
+
+    def validate(self, require_bindiff: bool = True) -> None:
+        """Fail fast with one clear, aggregated message instead of letting
+        the pipeline burn 10+ minutes on Ghidra analysis before discovering
+        BinExport or BinDiff wasn't configured.
+
+        Raises ConfigurationError listing every problem found (not just the
+        first) so a single `orbis-diff --check-env` run tells you
+        everything you need to fix at once.
+        """
+        problems: list[str] = []
+
+        try:
+            self.resolve_headless()
+        except FileNotFoundError as exc:
+            problems.append(str(exc))
+
+        try:
+            self.resolve_binexport_script_path()
+        except FileNotFoundError as exc:
+            problems.append(str(exc))
+        else:
+            script = self.binexport_script_path / self.binexport_script_name
+            if not script.exists():
+                problems.append(
+                    f"BINEXPORT_SCRIPT_PATH is set to {self.binexport_script_path}, but "
+                    f"{self.binexport_script_name} was not found inside it."
+                )
+
+        if require_bindiff:
+            try:
+                from bindiff import BinDiff
+            except ImportError:
+                problems.append(
+                    "python-bindiff is not installed. Run: pip install python-bindiff python-binexport"
+                )
+            else:
+                try:
+                    BinDiff.assert_installation_ok()
+                except Exception as exc:  # noqa: BLE001 - surfaced as one of `problems`
+                    problems.append(
+                        "The BinDiff 'differ' binary was not found or is not working "
+                        f"({exc}). Set BINDIFF_PATH or make sure it's on $PATH."
+                    )
+
+        try:
+            self.work_dir.mkdir(parents=True, exist_ok=True)
+            probe = self.work_dir / ".write_test"
+            probe.touch()
+            probe.unlink()
+        except OSError as exc:
+            problems.append(f"work_dir {self.work_dir} is not writable: {exc}")
+
+        if problems:
+            bullet_list = "\n".join(f"  - {p}" for p in problems)
+            raise ConfigurationError(
+                f"orbis-diff configuration is incomplete ({len(problems)} problem"
+                f"{'s' if len(problems) != 1 else ''}):\n{bullet_list}"
+            )
